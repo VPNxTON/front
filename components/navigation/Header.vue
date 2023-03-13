@@ -6,10 +6,20 @@
         <v-spacer></v-spacer>
         <v-btn v-for="route in routes" :key="route.path" :to="route.path">{{ route.title }}</v-btn>
         <v-spacer></v-spacer>
-        <v-btn variant="flat" color="primary">
-          Connect wallet
-        </v-btn>
+
+        <div v-if="state.status"> 
+          <v-btn variant="flat" color="primary" @click="connectUserWallet">
+          Connected
+           </v-btn>
+           <v-btn variant="flat" color="primary" @click="disconnectUser">
+          Disconnected
+           </v-btn>
+        </div>
+        <v-btn v-else variant="flat" color="primary" @click="connectUserWallet">
+          Connect Wallet
+           </v-btn>
       </div>
+
     </v-container>
   </v-app-bar>
 </template>

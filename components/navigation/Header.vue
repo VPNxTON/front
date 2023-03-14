@@ -5,10 +5,11 @@
         <h1>VPNxTON</h1>
         <v-spacer></v-spacer>
         <v-btn v-for="route in routes" :key="route.path" :to="route.path">{{ route.title }}</v-btn>
-        <v-spacer></v-spacer>
-        <v-btn variant="flat" color="primary">
-          Connect wallet
+        <v-btn @click="openWhitepapperPdf">
+          whitepaper
         </v-btn>
+        <v-spacer></v-spacer>
+        <ton-connect-wallet></ton-connect-wallet>
       </div>
     </v-container>
   </v-app-bar>
@@ -28,9 +29,9 @@ const routes = [
     path: '/about',
     title: 'how it works'
   },
-  {
-    path: '/whitepaper',
-    title: 'whitepaper'
-  },
 ]
+
+function openWhitepapperPdf(){
+  window.open('https://static.def.team/vpnxton/VPNxTON.pdf', '_blank');
+}
 </script>

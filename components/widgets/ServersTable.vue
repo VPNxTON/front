@@ -124,7 +124,7 @@ function downloadConfig(data,name:string='raw_config'){
           >
             <td>{{ item.uuid }}</td>
             <td>{{item.name}}</td>
-            <td>{{item.nft ? item.nft: '-' }}</td>
+            <td><a target="_blank" :href="`https://testnet.tonscan.org/nft/${item.nft}`">{{item.nft ? item.nft: '-' }}</a></td>
             <td><div class="text-h3" v-html="item.countryISO"></div></td>
             <td>{{item.type}}</td>
             <td>

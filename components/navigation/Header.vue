@@ -8,6 +8,9 @@
         <v-btn @click="openWhitepapperPdf">
           whitepaper
         </v-btn>
+        <v-btn v-if="userToken" to="/history">
+          history
+        </v-btn>
         <v-spacer></v-spacer>
         <ton-connect-wallet></ton-connect-wallet>
       </div>
@@ -16,14 +19,15 @@
 </template>
 
 <script lang="ts" setup>
+import {useUserStore} from "~/stores/user";
+
+const mainStore = useUserStore()
+const {userToken} = toRefs(mainStore)
+
 const routes = [
   {
     path: '/',
     title: 'connect'
-  },
-  {
-    path: '/history',
-    title: 'history'
   },
   {
     path: '/about',

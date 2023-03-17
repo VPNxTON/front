@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import QrcodeVue from 'qrcode.vue'
 import {connector} from "~/utils/ton-connect";
+import {userAuth} from "~/api/user/authUser";
+import {useUserStore} from "~/stores/user";
 const walletList = ref([])
 getWalletsList().then((result)=>{
   walletList.value=result
@@ -9,22 +11,30 @@ getWalletsList().then((result)=>{
 
 const showConnectDialog = ref(false)
 const qrCodeDialog = ref(false)
-const snackbarAuth = ref(false)
 
 const linkToConnect = ref(null)
 function connectWallet(wallet){
   linkToConnect.value=connectTonWallet(wallet)
-  console.log(linkToConnect.value)
   if(linkToConnect.value){
     qrCodeDialog.value=true
   }
 }
 
 const userSession = ref({})
+const userStore = useUserStore()
 connector.onStatusChange((walletInfo)=>{
       userSession.value=walletInfo
       showConnectDialog.value=false
       qrCodeDialog.value=false
+      if (walletInfo==null){
+        userStore.removeToken()
+        return
+      }
+      if (walletInfo.account.address && !userStore.userToken){
+        userAuth(walletInfo.account.address).then(({data})=>{
+          userStore.setUserToken(data.value.token)
+        })
+      }
     }
 );
 </script>
@@ -42,11 +52,6 @@ connector.onStatusChange((walletInfo)=>{
             <v-col class="d-flex justify-center" cols="12">
               <QrcodeVue size="300" v-if="linkToConnect" :value="linkToConnect"></QrcodeVue>
             </v-col>
-<!--            <v-col class="d-flex justify-center" cols="12">
-              <a :href="linkToConnect" target="_blank" class="v-btn" >
-                Auth with link
-              </a>
-            </v-col>-->
           </v-row>
         </v-sheet>
       </v-dialog>
@@ -75,7 +80,7 @@ connector.onStatusChange((walletInfo)=>{
       </v-row>
     </v-sheet>
   </v-dialog>
-  <v-btn v-if="!userSession?.account" @click="showConnectDialog=true" variant="flat" color="primary">
+  <v-btn v-if="!userSession?.account || !userStore.userToken" @click="showConnectDialog=true" variant="flat" color="primary">
     connect wallet
   </v-btn>
   <v-btn @click="exitFromWallet()" variant="flat" v-else color="error">

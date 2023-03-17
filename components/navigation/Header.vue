@@ -36,6 +36,6 @@ const routes = [
 ]
 
 function openWhitepapperPdf(){
-  window.open('https://static.def.team/vpnxton/VPNxTON.pdf', '_blank');
+  window.open('https://vpnxton.def.team/VPNxTON.pdf', '_blank');
 }
 </script>

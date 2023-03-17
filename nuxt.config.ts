@@ -3,9 +3,6 @@ import vuetify from "vite-plugin-vuetify";
 import {process} from "unenv/runtime/node/process/_process";
 export default defineNuxtConfig({
     ssr: false,
-    app:{
-      baseURL:'/vpnxton'
-    },
     runtimeConfig: {
         public: {
             baseURL: 'https://vpnxton.def.team/'

@@ -8,6 +8,13 @@ export default defineNuxtConfig({
             baseURL: 'https://vpnxton.def.team/'
         },
     },
+    app:{
+      head:{
+          link:[
+              { referrerpolicy: 'no-referrer', crossorigin:'anonymous',rel: 'stylesheet',href:'https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.min.css'}
+          ]
+      }
+    },
     build: {
         transpile: ["vuetify"]
     },

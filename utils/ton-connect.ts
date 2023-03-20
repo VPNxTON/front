@@ -1,6 +1,6 @@
 import TonConnect from '@tonconnect/sdk';
 
-const manifestTonConnectWallet = 'https://static.def.team/vpnxton/tonconnect-manifest.json'
+const manifestTonConnectWallet = 'https://vpnxton.def.team/tonconnect-manifest.json'
 export const connector = new TonConnect({
     manifestUrl: manifestTonConnectWallet
 });

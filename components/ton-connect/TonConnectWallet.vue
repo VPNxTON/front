@@ -83,7 +83,7 @@ connector.onStatusChange((walletInfo)=>{
   <v-btn v-if="!userSession?.account || !userStore.userToken" @click="showConnectDialog=true" variant="flat" color="primary">
     connect wallet
   </v-btn>
-  <v-btn @click="exitFromWallet()" variant="flat" v-else color="error">
-    disconect wallet: {{userSession.account.address.slice(0,7)}} ...
+  <v-btn @click="exitFromWallet()" variant="flat" append-icon="mdi-exit-to-app" v-else color="error">
+     {{userSession.account.address.slice(0,7)}} ...
   </v-btn>
 </template>

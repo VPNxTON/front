@@ -1,5 +1,6 @@
 import { createVuetify, ThemeDefinition } from "vuetify";
 import "vuetify/styles";
+import { aliases, mdi } from 'vuetify/iconsets/mdi'
 
 const DarkTheme: ThemeDefinition ={
     dark: true,
@@ -11,6 +12,13 @@ const DarkTheme: ThemeDefinition ={
 }
 export default defineNuxtPlugin((nuxtApp) => {
     const vuetify = createVuetify({
+        icons: {
+            defaultSet: 'mdi',
+            aliases,
+            sets: {
+                mdi,
+            }
+        },
         defaults:{
             global: {
                 flat: true,

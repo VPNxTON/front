@@ -3,10 +3,12 @@ import QrcodeVue from 'qrcode.vue'
 import {connector} from "~/utils/ton-connect";
 import {userAuth} from "~/api/user/authUser";
 import {useUserStore} from "~/stores/user";
+import { toUserFriendlyAddress } from '@tonconnect/sdk';
+
 const walletList = ref([])
 getWalletsList().then((result)=>{
   walletList.value=result
-  console.log(result)
+  //console.log(result)
 })
 
 const showConnectDialog = ref(false)
@@ -15,6 +17,7 @@ const qrCodeDialog = ref(false)
 const linkToConnect = ref(null)
 function connectWallet(wallet){
   linkToConnect.value=connectTonWallet(wallet)
+  console.log(linkToConnect.value)
   if(linkToConnect.value){
     qrCodeDialog.value=true
   }
@@ -50,7 +53,7 @@ connector.onStatusChange((walletInfo)=>{
         <v-sheet max-width="350" class="pa-4">
           <v-row>
             <v-col class="d-flex justify-center" cols="12">
-              <QrcodeVue size="300" v-if="linkToConnect" :value="linkToConnect"></QrcodeVue>
+              <QrcodeVue size="280" v-if="linkToConnect" :value="linkToConnect" level="L" margin='5'></QrcodeVue>
             </v-col>
           </v-row>
         </v-sheet>
@@ -84,6 +87,6 @@ connector.onStatusChange((walletInfo)=>{
     connect wallet
   </v-btn>
   <v-btn @click="exitFromWallet()" variant="flat" append-icon="mdi-exit-to-app" v-else color="error">
-     {{userSession.account.address.slice(0,7)}} ...
+     {{toUserFriendlyAddress(userSession.account.address).slice(0,7)}} ...
   </v-btn>
 </template>
